@@ -11,7 +11,11 @@ Pot fi selectate 3 optiuni:
 3. exit din program
 
 ====== !! IN LUCRU ======
+
 -format citibil pentru comanda diff in scriptul diff.sh
+
 -instructiuni mai clare in prompt si setarea manuala a numelui pentru snapshot-uri
+
 -monitorizare si pentru continutul fisierelor (ultima cerinta)
+
 +altele..
