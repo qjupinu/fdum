@@ -1,21 +1,17 @@
 # fdum
 File&amp;DiskUsageMonitor
 
+Update Jan 1 2025
 
-testat in Ubuntu 22.04.5 LTS
-
-Se ruleaza scipt.sh
-Pot fi selectate 3 optiuni:
-1. crearea unui snapshot cu rezultatul comenzilor ls -lR si df
+Se ruleaza script.sh
+Pot fi selectate 4 optiuni:
+1. generarea unui snapshot cu rezultatul sub forma de fisier typescript
 2. compararea a doua snapshot-uri generate la momente diferite de timp
-3. exit din program
+3. compararea unui snapshot cu starea actuala a directorului
+4. exit din program
 
-====== !! IN LUCRU ======
+*optiunile 2 si 3 vor avea un prompt separat pentru user la final pentru compararea continutului fisierelor modificate
 
--format citibil pentru comanda diff in scriptul diff.sh
-
--instructiuni mai clare in prompt si setarea manuala a numelui pentru snapshot-uri
-
--monitorizare si pentru continutul fisierelor (ultima cerinta)
-
-+altele..
+Mai sunt de facut:
+-parsarea typescripturilor
+-format citibil pentru diff (cu sed)
