@@ -1,7 +1,7 @@
 # fdum
 File&amp;DiskUsageMonitor
 
-Update Jan 1 2025
+Update Jan 2 2025
 
 Se ruleaza script.sh
 Pot fi selectate 4 optiuni:
@@ -13,5 +13,4 @@ Pot fi selectate 4 optiuni:
 *optiunile 2 si 3 vor avea un prompt separat pentru user la final pentru compararea continutului fisierelor modificate
 
 Mai sunt de facut:
--parsarea typescripturilor
 -format citibil pentru diff (cu sed)

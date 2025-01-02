@@ -9,43 +9,93 @@ CYAN='\033[0;36m'
 
 USERDIR='myfiles'
 TSDIR='snaps'
-#REPORTSDIR='reports'
+REPORTSDIR='reports'
 
 mkdir -p $TSDIR
 
-#functie generare typescript
+# Functie generare typescript
 generate_typescript() {
 	TSNAME=$1
 	TS="$TSDIR/$TSNAME"
 	TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
+	# comenzile ls si df - argument pentru comanda script
+	COMMANDS="ls -l $USERDIR\ndf\n"
 
-	#comenzile ls si df - argument pentru comanda script
-	script -c "ls -l '$USERDIR' ; df" "$TS" > /dev/null
-
-	#facem append continutului fiecarui fisier in typescript-ul nou creat
+	# facem append continutului fiecarui fisier in typescript-ul nou creat
 	for FILE in $(ls -p "$USERDIR" | grep -v /); do
-		script -c "cat '$USERDIR/$FILE'" -a "$TS" > /dev/null
+		COMMANDS="${COMMANDS}cat $USERDIR/$FILE\n"
 	done
 
+	COMMANDS="${COMMANDS}exit\n"
+	echo -e "$COMMANDS" > script_commands
+	script "$TS" < script_commands > /dev/null
 	clear
 	echo -e "${GREEN}Snapshot generat cu succes!\nLocatie fisier typescript: $TS${CYAN}\n"
 
 }
 
-#compara 2 snapshot-uri
-compare_old() {
-	TS1="$TSDIR/$1"
-	TS2="$TSDIR/$2"
-	
-	#desfacem fisierele TS
-	#awk de la linia de la care incepe ls pana la ultima linie
-	#analog pentru df
-	#generare raport
-	#intrebat user daca vrea sa compare si continutul fisierelor modificate
-	
+parse_typescript() {
+	TS="$1"
+	TSPARSEDIR="$2"
+
+	mkdir -p "$TSPARSEDIR"
+	ls_output_file="$TSPARSEDIR/ls_output.txt"
+	df_output_file="$TSPARSEDIR/df_output.txt"
+
+
+	# Extract output-ul comenzii ls -l
+	awk "/ls -l $USERDIR/{flag=1; next} /df/{flag=0} flag" "$TS" > "$ls_output_file"
+
+	# Extragem output-ul comenzii df
+	awk "/df/{flag=1; next} /cat/{flag=0} flag" "$TS" > "$df_output_file"
+
+	# Extracted files directory
+	TSEFD="$TSPARSEDIR/files"
+	mkdir -p "$TSEFD"
+	# Extragem outputul comenzilor cat
+	awk '
+	/cat '$USERDIR'\// {
+		# Inchide fisierul de output
+		if (outfile) close(outfile)
+
+		# Extrage filename fara prefix
+		split($0, arr, "/")
+		outfile = arr[length(arr)]
+
+		# Sterge \r$ din filename
+		sub(/\r$/, "", outfile)
+		outfile = "'$TSEFD'" "/" outfile
+		next
+	}
+	/exit/ || /cat '$USERDIR'\// {
+		# Opreste scrierea cand ajunge la urmatoarea comanda (cat sau exit)
+		outfile = ""
+		next
+	}
+	{
+		# Actualizeaza fisierul curent
+		if (outfile) {
+			sub(/\r$/, "")  # Remove carriage returns from content
+			print > outfile
+		}
+	}
+	' "$TS"
 }
 
-#START
+# Compara 2 snapshot-uri
+compare() {
+	#mkdir -p "$REPORTSDIR"
+	TS1="$TSDIR/$1"
+	TS2="$TSDIR/$2"
+	TSPDIR1="${TS1}_PARSED"
+	TSPDIR2="${TS2}_PARSED"
+	parse_typescript "$TS1" "$TSPDIR1"
+	parse_typescript "$TS2" "$TSPDIR2"
+	TSEFD1="$TSPDIR1/files"
+	TSEFD2="$TSPDIR2/files"
+}
+
+# START
 clear
 while true; do
 	echo -e "${CYAN}======== FDUM ========\nFIle&DiskUsageMonitor\n"
@@ -64,17 +114,19 @@ while true; do
 		echo -e "Snapshot-uri disponibile:${YELLOW}"
 		ls -p "$TSDIR" | grep -v /
 		echo -e "${CYAN}"
-		read -p "Numele primului snapshot: " S1
-		read -p "Numele celui de-al doilea snapshot: " S2
-		compare_old "$S1" "$S2"
+		read -p "Numele primului snapshot: " TS1
+		read -p "Numele celui de-al doilea snapshot: " TS2
+		compare "$TS1" "$TS2"
 		;;
 		3)
 		clear
 		echo -e "Snapshot-uri disponibile:${YELLOW}"
 		ls -p "$TSDIR" | grep -v /
 		echo -e "${CYAN}"
-		read -p "Numele snapshot-ului: " S1
-		compare_current "$S1"
+		read -p "Numele snapshot-ului: " TS1
+		TS2="tempLiveSnapshot"
+		generate_typescript "$TS2"
+		compare "$TS1" "$TS2" 
 		;;
         4)
 		clear
@@ -87,3 +139,7 @@ while true; do
 	esac
 
 done
+
+	
+
+
