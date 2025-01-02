@@ -1,6 +1,0 @@
-[?2004ltotal 20
--rw-rw-r-- 1 main main 16 Jan  2 15:44 file1
--rw-rw-r-- 1 main main 16 Jan  2 15:44 file2
--rw-rw-r-- 1 main main 29 Jan  2 15:51 file3
--rw-rw-r-- 1 main main 16 Jan  2 15:47 file5
--rw-rw-r-- 1 main main 16 Jan  2 15:51 file6

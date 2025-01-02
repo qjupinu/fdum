@@ -47,10 +47,10 @@ parse_typescript() {
 
 
 	# Extract output-ul comenzii ls -l
-	awk "/ls -l $USERDIR/{flag=1; next} /df/{flag=0} flag" "$TS" > "$ls_output_file"
+	awk "/ls -l $USERDIR/{flag=1; next} /df/ {flag=0} flag" "$TS" > "$ls_output_file"
 
 	# Extragem output-ul comenzii df
-	awk "/df/{flag=1; next} /cat/{flag=0} flag" "$TS" > "$df_output_file"
+	awk '/df/{flag=1; next} /exit/ || /cat/{flag=0} flag' "$TS" > "$df_output_file"
 
 	# Extracted files directory
 	TSEFD="$TSPARSEDIR/files"
@@ -98,10 +98,10 @@ compare() {
 	TSEFD2="$TSPDIR2/files"
 	echo -e "${LCYAN}============ REZULTAT ============\n${NC}Comparatie snapshot ${YELLOW}$1 ${NC}VS ${YELLOW}$2${NC}\n"
 	echo -e "${CYAN}Structura directoare / fisiere:${NC}"
-	diff "$TSPDIR1/ls_output" "$TSPDIR2/ls_output"
+	diff -u --color "$TSPDIR1/ls_output" "$TSPDIR2/ls_output"
 
 	echo -e "\n${CYAN}Spatiu pe disc:${NC}"
-	diff "$TSPDIR1/df_output" "$TSPDIR2/df_output"
+	diff -u --color "$TSPDIR1/df_output" "$TSPDIR2/df_output"
 
 	
 	read -p "Apasa [ENTER] pentru a continua"

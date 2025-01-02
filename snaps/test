@@ -1,35 +1,0 @@
-Script started on 2025-01-02 18:28:36+02:00 [<not executed on terminal>]
-ls -l myfiles
-df
-cat myfiles/file1
-cat myfiles/file2
-cat myfiles/file3
-cat myfiles/file4
-exit
-
-[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ ls -l myfiles
-[?2004ltotal 16
--rw-rw-r-- 1 main main 16 Jan  2 15:44 file1
--rw-rw-r-- 1 main main 16 Jan  2 15:44 file2
--rw-rw-r-- 1 main main 15 Jan  2 17:30 file3
--rw-rw-r-- 1 main main 16 Jan  2 17:29 file4
-[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ df
-[?2004lFilesystem     1K-blocks     Used Available Use% Mounted on
-tmpfs            3215460     2660   3212800   1% /run
-/dev/nvme0n1p2 482358784 43146616 414636220  10% /
-tmpfs           16077292    22924  16054368   1% /dev/shm
-tmpfs               5120        8      5112   1% /run/lock
-efivarfs             246      148        94  62% /sys/firmware/efi/efivars
-/dev/nvme0n1p3   1098632     6288   1092344   1% /boot/efi
-tmpfs            3215456     2572   3212884   1% /run/user/1000
-[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ cat myfiles/file1
-[?2004lThis is File #1
-[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ cat myfiles/file2
-[?2004lThis is File #2
-[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ cat myfiles/file3
-[?2004lThis is File #3[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ cat myfiles/file4
-[?2004lThis is File #4
-[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ exit
-[?2004lexit
-
-Script done on 2025-01-02 18:28:38+02:00 [COMMAND_EXIT_CODE="0"]
