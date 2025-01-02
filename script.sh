@@ -6,6 +6,7 @@ GREEN='\033[0;32m'
 LIGHTGREEN='\033[1;32m'
 YELLOW='\033[1;33m'
 CYAN='\033[0;36m'
+LCYAN='\033[1;36m'
 
 USERDIR='myfiles'
 TSDIR='snaps'
@@ -29,8 +30,10 @@ generate_typescript() {
 	COMMANDS="${COMMANDS}exit\n"
 	echo -e "$COMMANDS" > script_commands
 	script "$TS" < script_commands > /dev/null
+	echo -e "\n${GREEN}Snapshot generat cu succes!\nLocatie fisier typescript: $TS${NC}\n"
+	rm script_commands
+	read -p "Apasa [ENTER] pentru a continua"
 	clear
-	echo -e "${GREEN}Snapshot generat cu succes!\nLocatie fisier typescript: $TS${CYAN}\n"
 
 }
 
@@ -39,8 +42,8 @@ parse_typescript() {
 	TSPARSEDIR="$2"
 
 	mkdir -p "$TSPARSEDIR"
-	ls_output_file="$TSPARSEDIR/ls_output.txt"
-	df_output_file="$TSPARSEDIR/df_output.txt"
+	ls_output_file="$TSPARSEDIR/ls_output"
+	df_output_file="$TSPARSEDIR/df_output"
 
 
 	# Extract output-ul comenzii ls -l
@@ -93,12 +96,22 @@ compare() {
 	parse_typescript "$TS2" "$TSPDIR2"
 	TSEFD1="$TSPDIR1/files"
 	TSEFD2="$TSPDIR2/files"
+	echo -e "${LCYAN}============ REZULTAT ============\n${NC}Comparatie snapshot ${YELLOW}$1 ${NC}VS ${YELLOW}$2${NC}\n"
+	echo -e "${CYAN}Structura directoare / fisiere:${NC}"
+	diff "$TSPDIR1/ls_output" "$TSPDIR2/ls_output"
+
+	echo -e "\n${CYAN}Spatiu pe disc:${NC}"
+	diff "$TSPDIR1/df_output" "$TSPDIR2/df_output"
+
+	
+	read -p "Apasa [ENTER] pentru a continua"
+	clear
 }
 
 # START
 clear
 while true; do
-	echo -e "${CYAN}======== FDUM ========\nFIle&DiskUsageMonitor\n"
+	echo -e "${LCYAN}============== FDUM ==============\n${NC}FIle&DiskUsageMonitor - Main Menu\n"
 	echo "1. Genereaza un nou snapshot (typescript)"
 	echo "2. Compara doua snapshot-uri"
 	echo "3. Compara un snapshot cu structura actuala"
@@ -106,23 +119,25 @@ while true; do
 	read -p "Selectati optiunea: " ID
 	case $ID in
         1)
+		echo ""
 		read -p "Denumirea noului snapshot (typescript): " TSNAME
 		generate_typescript "$TSNAME"
 		;;
         2)
 		clear
 		echo -e "Snapshot-uri disponibile:${YELLOW}"
-		ls -p "$TSDIR" | grep -v /
-		echo -e "${CYAN}"
+		/bin/ls -p "$TSDIR" | grep -v /
+		echo -e "${NC}"
 		read -p "Numele primului snapshot: " TS1
 		read -p "Numele celui de-al doilea snapshot: " TS2
+		clear
 		compare "$TS1" "$TS2"
 		;;
 		3)
 		clear
 		echo -e "Snapshot-uri disponibile:${YELLOW}"
-		ls -p "$TSDIR" | grep -v /
-		echo -e "${CYAN}"
+		/bin/ls -p "$TSDIR" | grep -v /
+		echo -e "${NC}"
 		read -p "Numele snapshot-ului: " TS1
 		TS2="tempLiveSnapshot"
 		generate_typescript "$TS2"
@@ -134,7 +149,7 @@ while true; do
 		;;
         *)
 		clear
-		echo -e "${RED}Optiune invalida${CYAN}"
+		echo -e "${RED}Optiune invalida${NC}"
 		;;
 	esac
 
