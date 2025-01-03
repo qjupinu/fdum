@@ -1,0 +1,51 @@
+Script started on 2025-01-03 21:19:44+02:00 [<not executed on terminal>]
+ls -l myfiles
+df
+cat myfiles/100
+cat myfiles/1000
+cat myfiles/11
+cat myfiles/120
+cat myfiles/a1
+cat myfiles/a2
+cat myfiles/zincrw
+cat myfiles/zxxx
+exit
+
+[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ ls -l myfiles
+[?2004ltotal 28
+drwxrwxr-x 2 main main 4096 Jan  3 16:58 [0m[01;34m0[0m
+-rw-rw-r-- 1 main main   22 Jan  3 16:56 100
+-rw-rw-r-- 1 main main    0 Jan  3 16:55 1000
+-rw-rw-r-- 1 main main    0 Jan  3 16:49 11
+-rw-rw-r-- 1 main main    0 Jan  3 16:49 120
+drwxrwxr-x 2 main main 4096 Jan  3 16:57 [01;34m4[0m
+drwxrwxr-x 2 main main 4096 Jan  3 16:49 [01;34ma[0m
+-rw-rw-r-- 1 main main    0 Jan  3 16:55 a1
+-rw-rw-r-- 1 main main    0 Jan  3 16:55 a2
+drwxrwxr-x 2 main main 4096 Jan  3 16:49 [01;34mb[0m
+drwxrwxr-x 2 main main 4096 Jan  3 16:49 [01;34mc[0m
+drwxrwxr-x 2 main main 4096 Jan  3 16:49 [01;34my[0m
+-rw-rw-r-- 1 main main    0 Jan  3 16:51 zincrw
+-rw-rw-r-- 1 main main    0 Jan  3 16:49 zxxx
+[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ df
+[?2004lFilesystem     1K-blocks     Used Available Use% Mounted on
+tmpfs            3215460     2756   3212704   1% /run
+/dev/nvme1n1p2 482358784 44466544 413316292  10% /
+tmpfs           16077288    39400  16037888   1% /dev/shm
+tmpfs               5120        8      5112   1% /run/lock
+efivarfs             246      152        90  63% /sys/firmware/efi/efivars
+/dev/nvme1n1p3   1098632     6288   1092344   1% /boot/efi
+tmpfs            3215456     9896   3205560   1% /run/user/1000
+[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ cat myfiles/100
+[?2004ldid someone touch me?
+[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ cat myfiles/1000
+[?2004l[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ cat myfiles/11
+[?2004l[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ cat myfiles/120
+[?2004l[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ cat myfiles/a1
+[?2004l[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ cat myfiles/a2
+[?2004l[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ cat myfiles/zincrw
+[?2004l[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ cat myfiles/zxxx
+[?2004l[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ exit
+[?2004lexit
+
+Script done on 2025-01-03 21:19:46+02:00 [COMMAND_EXIT_CODE="0"]

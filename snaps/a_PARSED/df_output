@@ -1,8 +1,0 @@
-[?2004lFilesystem     1K-blocks     Used Available Use% Mounted on
-tmpfs            3215460     2660   3212800   1% /run
-/dev/nvme0n1p2 482358784 43146884 414635952  10% /
-tmpfs           16077292    22924  16054368   1% /dev/shm
-tmpfs               5120        8      5112   1% /run/lock
-efivarfs             246      148        94  62% /sys/firmware/efi/efivars
-/dev/nvme0n1p3   1098632     6288   1092344   1% /boot/efi
-tmpfs            3215456     2576   3212880   1% /run/user/1000
