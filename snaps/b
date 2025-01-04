@@ -1,0 +1,71 @@
+Script started on 2025-01-04 16:52:48+02:00 [<not executed on terminal>]
+ls -l myfiles
+df
+cat myfiles/001
+cat myfiles/002
+cat myfiles/00223
+cat myfiles/003
+cat myfiles/01
+cat myfiles/02
+cat myfiles/20
+cat myfiles/30
+cat myfiles/dvms
+cat myfiles/ejve
+cat myfiles/ejvf
+cat myfiles/eqrfj
+exit
+
+[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ ls -l myfiles
+[?2004ltotal 56
+drwxrwxr-x 2 main main 4096 Jan  4 16:41 [0m[01;34m0[0m
+-rw-rw-r-- 1 main main    7 Jan  4 16:50 001
+-rw-rw-r-- 1 main main    6 Jan  4 16:44 002
+-rw-rw-r-- 1 main main    0 Jan  4 16:42 00223
+-rw-rw-r-- 1 main main    0 Jan  4 16:43 003
+-rw-rw-r-- 1 main main    0 Jan  4 16:42 01
+-rw-rw-r-- 1 main main    3 Jan  4 16:50 02
+drwxrwxr-x 3 main main 4096 Jan  4 16:51 [01;34m1[0m
+drwxrwxr-x 2 main main 4096 Jan  4 16:52 [01;34m116[0m
+drwxrwxr-x 2 main main 4096 Jan  4 16:52 [01;34m16[0m
+drwxrwxr-x 2 main main 4096 Jan  4 16:42 [01;34m2[0m
+-rw-rw-r-- 1 main main    0 Jan  4 16:50 20
+drwxrwxr-x 2 main main 4096 Jan  4 16:42 [01;34m3[0m
+-rw-rw-r-- 1 main main   10 Jan  4 16:49 30
+drwxrwxr-x 2 main main 4096 Jan  4 16:43 [01;34mdvf[0m
+-rw-rw-r-- 1 main main    0 Jan  4 16:43 dvms
+drwxrwxr-x 2 main main 4096 Jan  4 16:44 [01;34mejvd[0m
+-rw-rw-r-- 1 main main    0 Jan  4 16:43 ejve
+-rw-rw-r-- 1 main main   16 Jan  4 16:50 ejvf
+-rw-rw-r-- 1 main main    0 Jan  4 16:43 eqrfj
+drwxrwxr-x 2 main main 4096 Jan  4 16:45 [01;34meqrjv[0m
+[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ df
+[?2004lFilesystem     1K-blocks     Used Available Use% Mounted on
+tmpfs            3215460     2768   3212692   1% /run
+/dev/nvme1n1p2 482358784 44484704 413298132  10% /
+tmpfs           16077284    39868  16037416   1% /dev/shm
+tmpfs               5120        8      5112   1% /run/lock
+efivarfs             246      154        88  64% /sys/firmware/efi/efivars
+/dev/nvme1n1p3   1098632     6288   1092344   1% /boot/efi
+tmpfs            3215456     9908   3205548   1% /run/user/1000
+[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ cat myfiles/001
+[?2004levevev
+[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ cat myfiles/002
+[?2004levae 
+[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ cat myfiles/00223
+[?2004l[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ cat myfiles/003
+[?2004l[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ cat myfiles/01
+[?2004l[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ cat myfiles/02
+[?2004lgg
+[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ cat myfiles/20
+[?2004l[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ cat myfiles/30
+[?2004leavjk
+eov
+[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ cat myfiles/dvms
+[?2004l[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ cat myfiles/ejve
+[?2004l[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ cat myfiles/ejvf
+[?2004lacuma sa te vad
+[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ cat myfiles/eqrfj
+[?2004l[?2004h]0;main@cst-thinkbook: ~/ub/uso/fdum[01;32mmain@cst-thinkbook[00m:[01;34m~/ub/uso/fdum[00m$ exit
+[?2004lexit
+
+Script done on 2025-01-04 16:52:50+02:00 [COMMAND_EXIT_CODE="0"]
