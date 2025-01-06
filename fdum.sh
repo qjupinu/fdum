@@ -1,27 +1,35 @@
 #!/bin/bash
 
+# Calea catre directorul monitorizat. Default: USERDIR='myfiles'
+USERDIR='myfiles'
+
 NC='\033[0m'
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 LGREEN='\033[1;32m'
 YELLOW='\033[1;33m'
+PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
 LCYAN='\033[1;36m'
-PURPLE='\033[0;35m'
 
-USERDIR='myfiles'
+
 TSDIR='snaps'
 TEMPDIR='temp'
 
-mkdir -p "$TSDIR"
-rm -rf "$TEMPDIR"
+check_user_directory() {
+	if [ ! -d "$USERDIR" ]; then
+		echo -e "${RED}STOP! Programul nu poate fi executat:"
+		echo -e "Directorul '$USERDIR' nu exista\n"
+		echo -e "Modificati variabila USERDIR din fdum.sh sau creati directorul default 'myfiles' in acelasi director din care este executat scriptul.${NC}\n"
+		exit 1
+	fi
+}
 
 # Functie generare typescript
 generate_typescript() {
 
 	TSNAME=$1
 	TS="$TSDIR/$TSNAME"
-	#TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
 	# comenzile ls si df - argument pentru comanda script
 	COMMANDS="ls -l $USERDIR\ndf\n"
 
@@ -36,8 +44,6 @@ generate_typescript() {
 	clear
 	echo -e "${GREEN}Snapshot generat cu succes!\nLocatie fisier typescript: $TS${NC}\n"
 	rm script_commands
-	#read -p "Apasa [ENTER] pentru a continua"
-
 }
 
 parse_typescript() {
@@ -50,7 +56,7 @@ parse_typescript() {
 
 
 	# Extract output-ul comenzii ls -l
-	awk "/ls -l $USERDIR/{flag=1; next} /df/ {flag=0} flag" "$TS" > "$ls_output_file"
+	awk "/ls -l /{flag=1; next} /df/ {flag=0} flag" "$TS" > "$ls_output_file"
 
 	# Extragem output-ul comenzii df
 	awk '/df/{flag=1; next} /exit/ || /cat/{flag=0} flag' "$TS" > "$df_output_file"
@@ -58,9 +64,19 @@ parse_typescript() {
 	# Extracted files directory
 	TSEFD="$TSPARSEDIR/files"
 	mkdir -p "$TSEFD"
+	# verificam daca USERDIR foloseste cale absoluta sau relativa cu '.' pentru a face corect parsarea mai departe
+	case "${USERDIR:0:1}" in
+		/|.)
+		MATCHUD=""
+		;;
+		*)
+		MATCHUD="$(echo "$USERDIR" | cut -d/ -f1)"
+		;;
+	esac
+
 	# Extragem outputul comenzilor cat
 	awk '
-	/cat '$USERDIR'\// {
+	/cat '$MATCHUD'/ {
 		# Inchide fisierul de output
 		if (outfile) close(outfile)
 
@@ -72,7 +88,7 @@ parse_typescript() {
 		system("touch " outfile)
 		next
 	}
-	/exit/ || /cat '$USERDIR'\// {
+	/exit/ || /cat '$MATCHUD'/ {
 		# Opreste scrierea cand ajunge la urmatoarea comanda (cat sau exit)
 		if (outfile) close(outfile)
     	outfile = ""
@@ -521,6 +537,7 @@ diff_files () {
 }
 
 # START
+check_user_directory
 clear
 while true; do
 	rm -rf "$TEMPDIR"

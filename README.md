@@ -1,7 +1,7 @@
 # FDUM
 File&amp;DiskUsageMonitor
 
-Update Jan 4 2025
+Update Jan 6 2025
 
 ## Descriere
 
@@ -10,10 +10,10 @@ FDUM are ca scop monitorizarea atat a structurii de fisiere si directoare releva
 Programul este capabil sa genereze si sa parseze automat fisiere typescript (create prin comanda script), pe care le stocheaza sub forma unor snapshot-uri. Utilizatorul poate folosi fdum pentru a compara aceste snapshot-uri, si a vizualiza diferentele intr-un format usor de inteles.
 
 Pe langa interpretarea in format citibil a output-ului comenzilor ls -l si df generate in typescript, programul va compara si continutul fisierelor care au fost modificate intre cele 2 snapshot-uri, daca utilizatorul doreste acest lucru.
-Interfata este prietenoasa; utilizatorul se poate intoarce mereu la meniul principal, iar instructiunile si output-ul sunt usor de inteles.
+Interfata este prietenoasa; utilizatorul se poate intoarce mereu la meniul principal, iar instructiunile sunt clare.
 
-- Fisierele si directoarele care au fost adaugate, sterse sau modificate vor fi monitorizate de fdum in directorul myfiles
-- Snapshot-urile (fisierele typescript neparsate) vor fi salvate in directorul snaps
+- By default, programul va monitoriza structura de fisiere si directoare din directorul 'myfiles', situat in locatia in care se afla scriptul. Utilizatorul are insa posibilitatea de a monitoriza orice director doreste, modificand variabila USERDIR din fdum.sh.
+- Snapshot-urile (fisierele typescript neparsate) vor fi salvate in directorul 'snaps'. Acest director va fi creat automat daca nu exista.
 - Rezultatul interpretatii va fi afisat in stdout
 
 ## Usage
@@ -28,4 +28,4 @@ Pot fi selectate 4 optiuni:
 ## Recomandari
 
 - Este foarte indicat ca fisierele si directoarele de monitorizat (cele din directorul myfiles) sa foloseasca doar caractere alfanumerice, fara spatii sau caractere speciale.
-- Este indicat ca fiecare fisier din myfiles sa aiba separator de linie la final.
+- Este best practice ca fiecare fisier din myfiles sa aiba separator de linie la final.
