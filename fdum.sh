@@ -539,6 +539,7 @@ diff_files () {
 # START
 check_user_directory
 clear
+mkdir -p "$TSDIR"
 while true; do
 	rm -rf "$TEMPDIR"
 	present="$TSDIR/tempLiveSnapshot"
