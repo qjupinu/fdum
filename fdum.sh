@@ -34,8 +34,10 @@ generate_typescript() {
 	COMMANDS="ls -l $USERDIR\ndf\n"
 
 	# facem append continutului fiecarui fisier in typescript-ul nou creat
-	for FILE in $(ls -p "$USERDIR" | grep -v /); do
-		COMMANDS="${COMMANDS}cat $USERDIR/$FILE\n"
+	for FILE in "$USERDIR"/*; do
+		if [ ! -d "$FILE" ]; then
+			COMMANDS="${COMMANDS}cat $(sed 's/ /\\ /g' <<< "$FILE")\n"
+		fi
 	done
 
 	COMMANDS="${COMMANDS}exit\n"
@@ -64,44 +66,41 @@ parse_typescript() {
 	# Extracted files directory
 	TSEFD="$TSPARSEDIR/files"
 	mkdir -p "$TSEFD"
-	# verificam daca USERDIR foloseste cale absoluta sau relativa cu '.' pentru a face corect parsarea mai departe
-	case "${USERDIR:0:1}" in
-		/|.)
-		MATCHUD=""
-		;;
-		*)
-		MATCHUD="$(echo "$USERDIR" | cut -d/ -f1)"
-		;;
-	esac
 
-	# Extragem outputul comenzilor cat
-	awk '
-	/cat '$MATCHUD'/ {
+	# Extragem outputul comenzilor cat (20250107 awk actualizat!)
+	awk -v tsefd="$TSEFD" -v userdir="$USERDIR" '
+	$0 ~ ("cat " userdir "/") {
 		# Inchide fisierul de output
 		if (outfile) close(outfile)
 
 		# Extrage filename fara prefix
 		split($0, arr, "/")
 		outfile = arr[length(arr)]
-		sub(/\r$/, "", outfile)
-		outfile = "'$TSEFD'" "/" outfile
-		system("touch " outfile)
+
+		# Scoate mizeriile
+		gsub(/^[ \t]*'\''|'\''[ \t]*$/, "", outfile)  
+		sub(/\r$/, "", outfile)                       
+		gsub(/\\/, "", outfile)                       
+		outfile = tsefd "/" outfile                   
+
+		# Creeaza fisierul gol !! ghilimele duble doar în system()
+		system("touch " "\"" outfile "\"")
 		next
 	}
-	/exit/ || /cat '$MATCHUD'/ {
-		# Opreste scrierea cand ajunge la urmatoarea comanda (cat sau exit)
+	/exit/ || $0 ~ ("cat " userdir "/") {
 		if (outfile) close(outfile)
-    	outfile = ""
-    	next
+		outfile = ""
+		next
 	}
 	{
-		# Actualizeaza fisierul curent
+		# write fara ghilimele aiurea
 		if (outfile) {
 			sub(/\r$/, "")
 			print > outfile
 		}
 	}
-	' "$TS"
+' "$TS"
+
 }
 
 # Compara 2 snapshot-uri
@@ -176,10 +175,24 @@ compare() {
 
 			# Stergem posibile culori / caractere speciale generate de terminal in typescript-ul original
 			color_removal="$TEMPDIR/color_removal"
-			echo ${line##*' '} > "$color_removal"
-
+			
+			#varianta veche (nu merg spatiile!):
+			#echo ${line##*' '} > "$color_removal"
+			
+			#cu asta merg spatiile
+			case $char0 in
+				' ')
+				echo "$line" | cut -d" " -f10- > "$color_removal"
+				;;
+				[+-]) 
+				echo "$line" | cut -d" " -f9- > "$color_removal"
+				;;
+			esac
+			
 			# Salvam string-ul actualizat in variabila entity
 			entity=$(sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2};?)?)?[mGK]//g" "$color_removal")
+
+			# NU UITA SA DECOMENTEZI "> DEV NULL 2>&1" la while !!!!!
 
 			# Salvam fisierele existente
 			if [[ $char0 == ' ' ]]; then
@@ -225,7 +238,15 @@ compare() {
 		char3=${line:3:1}
 		if [[ $char3 != ' ' ]]; then
 			color_removal="$TEMPDIR/color_removal"
-			echo ${line##*' '} > "$color_removal"
+			# Stergem posibile culori / caractere speciale generate de terminal in typescript-ul original
+			case $char0 in
+				' ')
+				echo "$line" | cut -d" " -f10- > "$color_removal"
+				;;
+				[+-]) 
+				echo "$line" | cut -d" " -f9- > "$color_removal"
+				;;
+			esac
 			entity=$(sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2};?)?)?[mGK]//g" "$color_removal")
 
 			case $char0 in
@@ -530,7 +551,12 @@ compare() {
 diff_files () {
 	FNAME="$1"
 	echo -e "${LCYAN}======== FISIER MODIFICAT  ========\n${NC}$USERDIR/$FNAME\n"
-	diff -u --color $TSEFD1/$FNAME $TSEFD2/$FNAME
+	CFNAME="${FNAME//\'/}"
+
+	FILE1="$TSEFD1/$(echo "$CFNAME" | tr -d '\n')"
+	FILE2="$TSEFD2/$(echo "$CFNAME" | tr -d '\n')"
+	diff -u --color "$FILE1" "$FILE2"
+
 	echo ""
 	read -p "Apasa [ENTER] pentru a continua."
 	clear

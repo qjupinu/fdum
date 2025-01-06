@@ -1,31 +1,28 @@
 # FDUM
 File&amp;DiskUsageMonitor
 
-Update Jan 6 2025
+Update Jan 7 2025: pot fi monitorizate și fișierele/directoarele care conțin spațiu în nume
 
 ## Descriere
 
-FDUM are ca scop monitorizarea atat a structurii de fisiere si directoare relevante pentru utilizator, cat si a utilizarii spatiului pe disc, prin interpretarea sesiunii de lucru (terminal) a utilizatorului.
+FDUM (File&DiskUsageMonitor) are ca scop monitorizarea atât a structurii de fișiere și directoare relevante pentru utilizator, cât și a utilizării spațiului pe disc, prin interpretarea sesiunii de lucru (terminal) a utilizatorului.
 
-Programul este capabil sa genereze si sa parseze automat fisiere typescript (create prin comanda script), pe care le stocheaza sub forma unor snapshot-uri. Utilizatorul poate folosi fdum pentru a compara aceste snapshot-uri, si a vizualiza diferentele intr-un format usor de inteles.
+Programul este capabil să genereze și să parseze automat fișiere typescript (create prin comanda script), pe care le stochează sub forma unor snapshot-uri. Utilizatorul poate folosi fdum pentru a compara aceste snapshot-uri, și a vizualiza diferențele într-un format ușor de înțeles.
 
-Pe langa interpretarea in format citibil a output-ului comenzilor ls -l si df generate in typescript, programul va compara si continutul fisierelor care au fost modificate intre cele 2 snapshot-uri, daca utilizatorul doreste acest lucru.
-Interfata este prietenoasa; utilizatorul se poate intoarce mereu la meniul principal, iar instructiunile sunt clare.
+Pe lângă interpretarea în format citibil a output-ului comenzilor ls -l și df generate în typescript, programul va compara și conținutul fișierelor care au fost modificate între momentele corespunzătoare celor două snapshot-uri, dacă utilizatorul dorește acest lucru. Interfața este prietenoasă; utilizatorul se poate întoarce mereu la meniul principal, iar instrucțiunile sunt clare.
 
-- By default, programul va monitoriza structura de fisiere si directoare din directorul 'myfiles', situat in locatia in care se afla scriptul. Utilizatorul are insa posibilitatea de a monitoriza orice director doreste, modificand variabila USERDIR din fdum.sh.
-- Snapshot-urile (fisierele typescript neparsate) vor fi salvate in directorul 'snaps'. Acest director va fi creat automat daca nu exista.
-- Rezultatul interpretatii va fi afisat in stdout
+## Observații generale și recomandări
+
+- By default, programul va monitoriza structura de fișiere și directoare din directorul 'myfiles', situat în locația în care se află scriptul. Utilizatorul are posibilitatea de a monitoriza orice director dorește, modificând variabila USERDIR din fdum.sh.
+- Best practice: fiecare fișier să aibă separator de linie la final.
+- Snapshot-urile (fișierele typescript neparsate) vor fi salvate în directorul 'snaps'. Acest director va fi creat automat dacă nu există.
+- Rezultatul interpretării va fi afișat în stdout
 
 ## Usage
 
-Se executa fdum.sh (fara argumente suplimentare)
-Pot fi selectate 4 optiuni:
-1. generarea unui snapshot cu rezultatul sub forma de fisier typescript
-2. compararea a doua snapshot-uri generate la momente diferite de timp
-3. compararea unui snapshot cu starea actuala a directorului
+Se execută scriptul fdum.sh (fără argumente suplimentare). Din meniul principal, pot fi selectate 4 opțiuni:
+1. generarea unui snapshot cu rezultatul sub formă de fișier typescript
+2. compararea a două snapshot-uri generate la momente diferite de timp
+3. compararea unui snapshot cu starea actuală a directorului
 4. exit din program
-
-## Recomandari
-
-- Este foarte indicat ca fisierele si directoarele de monitorizat (cele din directorul myfiles) sa foloseasca doar caractere alfanumerice, fara spatii sau caractere speciale.
-- Este best practice ca fiecare fisier din myfiles sa aiba separator de linie la final.
+În funcție de opțiunea selectată, programul va afișa mai departe instrucțiunile corespunzătoare.
