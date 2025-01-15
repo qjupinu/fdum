@@ -142,7 +142,8 @@ compare() {
 
 	# salvam output-ul comenzii "ls -l" in fisierul temporar ls_diff
 	# folosim sed pentru a nu permite lui diff sa compare codurile de escape generate in typescript
-	diff -u <(sed 's/\x1B\[[0-9;]*[a-zA-Z]//g' "$TSPDIR1/ls_output") <(sed 's/\x1B\[[0-9;]*[a-zA-Z]//g' "$TSPDIR2/ls_output") | tr -s ' ' > "$ls_diff"
+
+	diff -u <(sed 's/\x1B\[[0-9;]*[a-zA-Z]//g' "$TSPDIR1/ls_output" | tr -s ' ') <(sed 's/\x1B\[[0-9;]*[a-zA-Z]//g' "$TSPDIR2/ls_output" | tr -s ' ') > "$ls_diff"
 	
 	# in checked vom salva fisierele/directoarele parcurse
 	checked_files="$TEMPDIR/checked_files"
@@ -345,7 +346,8 @@ compare() {
 
 	# salvam output-ul comenzii "df" in fisierul temporar df_diff
 	# folosim sed pentru a nu permite lui diff sa compare codurile de escape generate in typescript
-	diff -u <(sed 's/\x1B\[[0-9;]*[a-zA-Z]//g' "$TSPDIR1/df_output") <(sed 's/\x1B\[[0-9;]*[a-zA-Z]//g' "$TSPDIR2/df_output") | tr -s ' ' > "$df_diff"
+
+	diff -u <(sed 's/\x1B\[[0-9;]*[a-zA-Z]//g' "$TSPDIR1/df_output" | tr -s ' ') <(sed 's/\x1B\[[0-9;]*[a-zA-Z]//g' "$TSPDIR2/df_output" | tr -s ' ') > "$df_diff"
 	
 	checked_mountpoints="$TEMPDIR/checked_mountpoints"
 	checked_size_used="$TEMPDIR/checked_size_used"
@@ -670,5 +672,4 @@ while true; do
 		echo -e "${RED}Optiune invalida${NC}"
 		;;
 	esac
-
 done

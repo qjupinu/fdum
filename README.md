@@ -1,7 +1,7 @@
 # FDUM
 File&amp;DiskUsageMonitor
 
-Update Jan 7 2025: pot fi monitorizate și fișierele/directoarele care conțin spațiu în nume
+Update Jan 15 2025: rezolvat bug-uri
 
 ## Descriere
 
